@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0a0a0a">
+<title>KENY PARFUMERIE — Boutique</title>
+<style>
+:root{
+ --black:#080808;--black2:#141414;--gold:#e8b94e;--gold2:#ffd976;
+ --cream:#fbf7ed;--white:#fff;--red:#c92222;--green:#25d366;
+ --muted:#746f66;--line:#e9dfcc;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--cream);color:#151515}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+.top{background:#050505;color:#fff;padding:8px 5%;font-size:13px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+header{position:sticky;top:0;z-index:50;background:rgba(8,8,8,.96);backdrop-filter:blur(12px);border-bottom:1px solid #29210f}
+.nav{max-width:1220px;margin:auto;padding:13px 5%;display:flex;align-items:center;gap:24px}
+.brand{font-family:Georgia,serif;font-size:27px;font-weight:900;letter-spacing:2px;color:var(--gold2);line-height:.8}
+.brand span{display:block;font-size:9px;letter-spacing:5px;color:#fff;text-align:center;margin-top:7px}
+.links{display:flex;gap:23px;margin-left:auto}
+.links a{color:#fff;font-size:14px;font-weight:800}.links a:hover{color:var(--gold2)}
+.cartbtn{position:relative;background:#191919;border:1px solid #444;color:#fff;border-radius:11px;padding:10px 13px}
+.count{position:absolute;right:-7px;top:-7px;background:var(--red);width:21px;height:21px;border-radius:50%;font-size:11px;display:grid;place-items:center}
+.hero{max-width:1220px;margin:18px auto 0;padding:0 5%}
+.heroBox{height:500px;border-radius:24px;overflow:hidden;position:relative;background:#000;box-shadow:0 18px 55px #0002}
+.heroBox img{width:100%;height:100%;object-fit:cover}
+.heroShade{position:absolute;inset:0;background:linear-gradient(90deg,#000d 0%,#0008 35%,transparent 75%)}
+.heroText{position:absolute;left:7%;top:50%;transform:translateY(-50%);max-width:530px;color:#fff}
+.kicker{color:var(--gold2);font-weight:900;letter-spacing:3px;font-size:12px;text-transform:uppercase}
+h1{font-family:Georgia,serif;font-size:clamp(42px,6vw,74px);line-height:.95;margin:13px 0}
+.heroText p{font-size:17px;line-height:1.55;color:#f4ede0}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.btn{border:0;border-radius:12px;padding:13px 18px;font-weight:900;display:inline-flex;gap:8px;align-items:center}
+.gold{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#151515}
+.wa{background:var(--green);color:#073719}.dark{background:#fff;color:#111}
+.wrap{max-width:1220px;margin:55px auto;padding:0 5%}
+.head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:22px}
+h2{font-family:Georgia,serif;font-size:34px;margin:0}.sub{color:var(--muted);margin:7px 0 0}
+
+/* Gamme défilante à l'accueil */
+.rangeSection{max-width:1220px;margin:34px auto 0;padding:0 5%}
+.rangeHead{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:14px}
+.rangeTitle{font-family:Georgia,serif;font-size:30px;margin:0}
+.rangeControls{display:flex;gap:7px}
+.rangeArrow{width:38px;height:38px;border:1px solid #d9ceb8;background:#fff;border-radius:50%;font-size:20px;font-weight:900}
+.rangeWrap{position:relative}
+.rangeScroller{display:flex;gap:14px;overflow-x:auto;scroll-behavior:smooth;scroll-snap-type:x mandatory;padding:5px 2px 14px;scrollbar-width:none;cursor:grab}
+.rangeScroller::-webkit-scrollbar{display:none}
+.rangeScroller.dragging{cursor:grabbing;scroll-behavior:auto;scroll-snap-type:none}
+.rangeCard{flex:0 0 220px;background:#fff;border:1px solid #eee5d5;border-radius:17px;overflow:hidden;box-shadow:0 8px 25px #3b2b120d;scroll-snap-align:start;position:relative}
+.rangeImg{height:210px;background:#f4f0e8;overflow:hidden;cursor:zoom-in}
+.rangeImg img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
+.rangeCard:hover .rangeImg img{transform:scale(1.05)}
+.rangeInfo{padding:12px 13px 14px}.rangeInfo h3{font-size:15px;margin:0 0 6px}.rangeCat{font-size:10px;text-transform:uppercase;letter-spacing:1px;font-weight:900;color:#88795e}.rangePrice{font-weight:900;color:var(--red);font-size:16px}
+.rangeHint{font-size:11px;color:#777;margin:4px 0 0}.rangeFade{position:absolute;top:0;bottom:14px;width:45px;pointer-events:none}.rangeFade.left{left:0;background:linear-gradient(90deg,var(--cream),transparent)}.rangeFade.right{right:0;background:linear-gradient(270deg,var(--cream),transparent)}
+@media(max-width:600px){.rangeSection{padding:0 3%;margin-top:28px}.rangeTitle{font-size:25px}.rangeCard{flex-basis:175px}.rangeImg{height:170px}.rangeControls{display:none}}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.filter{border:1px solid #d9ceb8;background:#fff;padding:9px 14px;border-radius:999px;font-weight:800}
+.filter.active,.filter:hover{background:#111;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:17px}
+.card{background:#fff;border:1px solid #eee5d5;border-radius:18px;overflow:hidden;box-shadow:0 7px 25px #3b2b120b;display:flex;flex-direction:column}
+.pic{height:250px;position:relative;background:#f4f0e8;overflow:hidden}
+.pic img{width:100%;height:100%;object-fit:cover;transition:.3s;cursor:zoom-in}.card:hover .pic img{transform:scale(1.04)}
+.badge{position:absolute;top:11px;left:11px;background:var(--red);color:#fff;padding:6px 9px;border-radius:8px;font-size:10px;font-weight:900;z-index:4}
+.body{padding:14px;display:flex;flex-direction:column;gap:7px;flex:1}
+.cat{font-size:10px;color:#88795e;font-weight:900;letter-spacing:1.2px;text-transform:uppercase}
+.ref{font-size:11px;color:#9a9385}
+.body h3{font-size:17px;margin:0}.desc{font-size:13px;color:#6d685f;line-height:1.4}
+.price{display:flex;gap:8px;align-items:center;margin-top:auto;padding-top:7px}.price strong{font-size:20px;color:var(--red)}.old{text-decoration:line-through;color:#999;font-size:13px}
+.stock{font-size:11px;color:#158046;font-weight:900}.stock.out{color:var(--red)}
+.cardActions{display:grid;grid-template-columns:1fr;gap:7px;margin-top:5px}
+.add{border:0;background:#111;color:#fff;border-radius:10px;padding:11px;font-weight:900}.add:disabled{background:#bbb;cursor:not-allowed}
+
+/* Boutons Acheter + WhatsApp sur chaque produit */
+.buyRow{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.buyNow,.waProd{border:0;border-radius:10px;padding:11px 6px;font-weight:900;font-size:13px}
+.buyNow{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#151515}
+.buyNow:disabled{background:#ccc;color:#777;cursor:not-allowed}
+.waProd{background:var(--green);color:#063719}
+
+.benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.benefit{background:#111;color:#fff;border-radius:17px;padding:20px}.benefit strong{color:var(--gold2);display:block;margin-bottom:8px}.benefit p{font-size:13px;line-height:1.5;color:#d7d7d7;margin:0}
+.banner{background:linear-gradient(135deg,#0b0b0b,#282218);border-radius:22px;padding:30px;color:#fff;display:flex;justify-content:space-between;align-items:center;gap:20px}.banner h3{font-family:Georgia,serif;font-size:30px;color:var(--gold2);margin:0 0 7px}.banner p{color:#ddd;margin:0}
+footer{margin-top:65px;background:#070707;color:#fff;padding:42px 5% 25px}.foot{max-width:1220px;margin:auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px}.foot h3{font-family:Georgia,serif;color:var(--gold2);margin-top:0}.foot p,.foot li{font-size:14px;color:#cfcfcf;line-height:1.8}.foot ul{padding:0;list-style:none}.bottom{max-width:1220px;margin:28px auto 0;padding-top:18px;border-top:1px solid #333;display:flex;justify-content:space-between;color:#aaa;font-size:12px}
+.drawer{display:none;position:fixed;inset:0;z-index:100}.drawer.open{display:block}.back{position:absolute;inset:0;background:#0009}.panel{position:absolute;right:0;top:0;width:min(450px,100%);height:100%;overflow:auto;background:#fff;padding:22px;box-shadow:-20px 0 60px #0005}
+.panelHead{display:flex;justify-content:space-between;align-items:center}.close{border:0;background:#f1ede5;padding:9px 12px;border-radius:9px}
+.item{display:grid;grid-template-columns:65px 1fr auto;gap:10px;padding:12px 0;border-bottom:1px solid #eee;align-items:center}.item img{width:65px;height:65px;object-fit:cover;border-radius:9px}.item h4{margin:0 0 4px;font-size:14px}.qty{display:flex;align-items:center;gap:6px;margin-top:6px}.qty button{width:25px;height:25px;border:1px solid #ddd;background:#fff;border-radius:6px}.remove{border:0;background:none;color:var(--red);font-size:11px}
+.total{display:flex;justify-content:space-between;font-weight:900;font-size:21px;margin:18px 0}.form{display:grid;gap:9px}.form label{font-size:12px;font-weight:900;color:#504a42}.form input,.form select,.form textarea{width:100%;padding:12px;border:1px solid #d8d0c2;border-radius:10px;background:#fff}
+
+/* Paiement : MTN, Moov, Celtiis */
+.payments{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pay{border:1px solid #ddd1bb;background:#fff;padding:11px 6px;border-radius:10px;font-weight:900;font-size:13px}
+.pay.active{background:#111;color:#fff;border-color:#111}
+.payInfo{background:#fff8e3;border:1px solid #ecd9a0;border-radius:10px;padding:10px 12px;font-size:12px;line-height:1.5;color:#4a3d12;margin:0}
+
+.mainOrder,.sendWA{border:0;border-radius:12px;padding:14px;font-weight:900}.mainOrder{background:#111;color:#fff}.sendWA{background:var(--green);color:#063719}
+.note{font-size:11px;line-height:1.5;color:#777}.empty{text-align:center;padding:45px 10px;color:#777}
+.recap{display:none;white-space:pre-wrap;background:#faf6ec;border:1px dashed #d9ceb8;border-radius:10px;padding:12px;font-size:12px;line-height:1.5;color:#3a352c}.recap.show{display:block}
+.toast{position:fixed;z-index:400;left:50%;bottom:22px;transform:translate(-50%,25px);opacity:0;background:#111;color:#fff;padding:12px 18px;border-radius:10px;font-weight:800;transition:.25s;pointer-events:none;max-width:90vw;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}
+
+.adminBtn{border:1px solid #6d5727;background:#211b0e;color:var(--gold2);border-radius:11px;padding:10px 12px;font-weight:900;white-space:nowrap}.adminBtn:hover{background:#332712}
+.adminDrawer{display:none;position:fixed;inset:0;z-index:150}.adminDrawer.open{display:block}.adminBack{position:absolute;inset:0;background:#000b}.adminPanel{position:absolute;right:0;top:0;width:min(620px,100%);height:100%;overflow:auto;background:#fff;padding:22px;box-shadow:-20px 0 60px #0007}.adminPanel h2{font-size:28px}.adminHead{display:flex;justify-content:space-between;align-items:center;gap:10px}.adminGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.adminForm{display:grid;gap:9px;margin-top:16px}.adminForm input,.adminForm select,.adminForm textarea{width:100%;padding:11px;border:1px solid #d8d0c2;border-radius:10px}.adminForm label{font-size:12px;font-weight:900}.adminSubmit{border:0;background:#111;color:#fff;border-radius:10px;padding:13px;font-weight:900}.adminDanger{border:0;background:#fee;color:#a00;border-radius:9px;padding:8px 10px;font-weight:900}.adminEdit{border:0;background:#f1ede5;color:#111;border-radius:9px;padding:8px 12px;font-weight:900}.adminProduct{display:grid;grid-template-columns:70px 1fr auto;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid #eee}.adminProduct.editing{background:#fff8e3}.adminProduct img{width:70px;height:70px;object-fit:cover;border-radius:10px}.adminProduct h4{margin:0 0 4px}.adminMeta{font-size:12px;color:#777}.adminBtns{display:grid;gap:6px}.previewRow{display:flex;gap:8px;overflow:auto;padding:8px 4px}.previewRow img{width:70px;height:70px;object-fit:cover;border-radius:8px;border:1px solid #ddd;display:block}.thumb{position:relative;flex:0 0 auto}.thumb .tx{position:absolute;top:-6px;right:-6px;width:22px;height:22px;border:0;border-radius:50%;background:#c92222;color:#fff;font-size:11px;font-weight:900;line-height:1}.thumb .tf{position:absolute;left:3px;bottom:3px;border:0;border-radius:6px;background:#111c;color:#fff;font-size:10px;padding:2px 5px}.thumb .tmain{position:absolute;left:3px;bottom:3px;border-radius:6px;background:var(--gold);color:#111;font-size:10px;font-weight:900;padding:2px 5px}.loginBox{max-width:360px;margin:70px auto;padding:25px;border:1px solid #eee;border-radius:18px;box-shadow:0 10px 35px #0001}.loginBox h3{font-family:Georgia,serif;margin-top:0}.loginBox input{width:100%;padding:12px;border:1px solid #d8d0c2;border-radius:10px;margin:8px 0 12px}.gallery{position:absolute;inset:0;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}.gallery::-webkit-scrollbar{display:none}.gallery img{min-width:100%;height:100%;object-fit:cover;scroll-snap-align:start;cursor:zoom-in}.galleryDots{position:absolute;left:0;right:0;bottom:9px;display:flex;justify-content:center;gap:5px;z-index:3;pointer-events:none}.galleryDots i{width:6px;height:6px;border-radius:50%;background:#fff;opacity:.55;display:block}.galleryDots i.on{opacity:1}.multiHint{font-size:11px;color:#777}.lightbox{display:none;position:fixed;inset:0;background:#000e;z-index:300;align-items:center;justify-content:center;padding:25px}.lightbox.open{display:flex}.lightbox img{max-width:94vw;max-height:88vh;object-fit:contain;border-radius:10px}.lbClose{position:absolute;right:18px;top:14px;border:0;background:#fff;color:#111;border-radius:50%;width:42px;height:42px;font-size:20px;font-weight:900}.lbPrev,.lbNext{position:absolute;top:50%;transform:translateY(-50%);border:0;background:#fff;color:#111;border-radius:50%;width:45px;height:45px;font-size:25px;font-weight:900}.lbPrev{left:15px}.lbNext{right:15px}
+@media(max-width:600px){.adminGrid{grid-template-columns:1fr}.adminPanel{padding:16px}.adminBtn{font-size:12px;padding:9px}.links{display:none}}
+@media(max-width:950px){.grid{grid-template-columns:repeat(2,1fr)}.benefits{grid-template-columns:repeat(2,1fr)}.links{display:none}}
+@media(max-width:600px){.top{justify-content:center}.hero{padding:0 3%}.heroBox{height:550px}.heroBox img{object-position:60% center}.heroText{left:7%;right:7%;top:auto;bottom:28px;transform:none}.heroText p{font-size:14px}.wrap{padding:0 3%;margin-top:40px}.grid{gap:9px}.pic{height:180px}.body{padding:10px}.body h3{font-size:14px}.price strong{font-size:16px}.buyNow,.waProd{font-size:12px;padding:10px 4px}.benefits{gap:8px}.benefit{padding:14px}.banner{display:block}.banner .btn{margin-top:16px}.foot{grid-template-columns:1fr}.bottom{display:block}}
+</style>
+</head>
+<body>
+<div class="top"><span>✨ KENY PARFUMERIE — L'élégance qui vous distingue</span><span>📞 64 56 53 42 · 51 53 99 01</span></div>
+
+<header><nav class="nav">
+<a class="brand" href="#accueil">KENY<span>PARFUMERIE</span></a>
+<div class="links"><a href="#accueil">Accueil</a><a href="#boutique">Boutique</a><a href="#services">Services</a><a href="#contact">Contact</a></div>
+<button class="adminBtn" onclick="openAdmin()" aria-label="Compte échange">🔄 Compte échange</button><button class="cartbtn" onclick="openCart()">🛒 Panier <b class="count" id="count">0</b></button>
+</nav></header>
+
+<main id="accueil">
+<section class="hero"><div class="heroBox">
+<img src="assets/hero.png" alt="KENY PARFUMERIE">
+<div class="heroShade"></div>
+<div class="heroText">
+<div class="kicker">Parfums • Beauté • Maison</div>
+<h1>Le parfum qui vous ressemble.</h1>
+<p>Parfums hommes et femmes, déodorants, brumes parfumées et diffuseurs. Commandez simplement depuis votre téléphone.</p>
+<div class="actions"><a class="btn gold" href="#boutique">🛍️ Voir la boutique</a><button class="btn wa" onclick="openCart()">🛒 Mon panier</button></div>
+</div></div></section>
+
+<section class="rangeSection" aria-label="Gamme de parfums">
+  <div class="rangeHead">
+    <div>
+      <h2 class="rangeTitle">✨ Notre gamme de parfums</h2>
+      <p class="sub">Faites défiler pour découvrir nos senteurs disponibles.</p>
+    </div>
+    <div class="rangeControls">
+      <button class="rangeArrow" type="button" onclick="scrollRange(-1)" aria-label="Précédent">‹</button>
+      <button class="rangeArrow" type="button" onclick="scrollRange(1)" aria-label="Suivant">›</button>
+    </div>
+  </div>
+  <div class="rangeWrap">
+    <div class="rangeScroller" id="rangeScroller"></div>
+    <div class="rangeFade left"></div><div class="rangeFade right"></div>
+  </div>
+</section>
+
+<section class="wrap" id="boutique">
+<div class="head"><div><h2>Nos produits</h2><p class="sub">Découvrez notre sélection KENY PARFUMERIE.</p></div></div>
+<div class="filters" id="filters"></div>
+<div class="grid" id="products"></div>
+</section>
+
+<section class="wrap" id="services">
+<div class="head"><div><h2>Une commande simple</h2><p class="sub">Tout est pensé pour une expérience rapide sur mobile.</p></div></div>
+<div class="benefits">
+<div class="benefit"><strong>🛒 Panier</strong><p>Ajoutez plusieurs produits, modifiez les quantités et consultez le total.</p></div>
+<div class="benefit"><strong>📱 Mobile Money</strong><p>Payez avec MTN, Moov ou Celtiis au moment de la commande.</p></div>
+<div class="benefit"><strong>💬 WhatsApp</strong><p>Recevez le récapitulatif et envoyez votre commande directement à KENY.</p></div>
+<div class="benefit"><strong>✨ Catalogue</strong><p>Parfums, déodorants, brumes et produits parfumés pour tous.</p></div>
+</div>
+</section>
+
+<section class="wrap"><div class="banner"><div><h3>Besoin d'un renseignement ?</h3><p>Écrivez-nous sur WhatsApp pour vérifier un produit ou préparer une commande.</p></div><a class="btn wa" target="_blank" href="https://wa.me/22964565342?text=Bonjour%20KENY%20PARFUMERIE%2C%20je%20souhaite%20un%20renseignement.">💬 WhatsApp</a></div></section>
+</main>
+
+<footer id="contact"><div class="foot">
+<div><h3>KENY PARFUMERIE</h3><p>Des senteurs • Des produits de qualité • À votre service</p><p>📞 64 56 53 42<br>📞 51 53 99 01<br>📘 Facebook : Keny Keny</p></div>
+<div><h3>Boutique</h3><ul><li>Parfums hommes</li><li>Parfums femmes</li><li>Déodorants</li><li>Brumes parfumées</li><li>Diffuseurs</li></ul></div>
+<div><h3>Commande</h3><p>Panier en ligne, choix du paiement (MTN, Moov, Celtiis) et envoi du récapitulatif par WhatsApp.</p></div>
+</div><div class="bottom"><span>© 2026 KENY PARFUMERIE</span><span>Faites-vous plaisir ! ♡</span></div></footer>
+
+<div class="drawer" id="drawer"><div class="back" onclick="closeCart()"></div><aside class="panel">
+<div class="panelHead"><h2>Mon panier</h2><button class="close" onclick="closeCart()">✕</button></div>
+<div id="items"></div>
+<div id="checkout" style="display:none">
+<div class="total"><span>Total</span><span id="total">0 FCFA</span></div>
+<div class="form">
+<label>Nom complet</label><input id="name" placeholder="Votre nom">
+<label>Téléphone</label><input id="phone" placeholder="Votre numéro" inputmode="tel">
+<label>Lieu de livraison</label><textarea id="address" rows="2" placeholder="Quartier / adresse"></textarea>
+<label>Moyen de paiement</label>
+<div class="payments">
+<button class="pay active" data-pay="MTN Mobile Money" onclick="payment(this)">MTN MoMo</button>
+<button class="pay" data-pay="Moov Money" onclick="payment(this)">Moov Money</button>
+<button class="pay" data-pay="Celtiis Cash" onclick="payment(this)">Celtiis Cash</button>
+</div>
+<p class="payInfo" id="payInfo" style="display:none"></p>
+<label>Référence de paiement (si déjà payé)</label><input id="ref" placeholder="Référence facultative">
+<p class="note">Cette boutique prépare la commande et le paiement. Pour un débit Mobile Money réellement automatique, une API de paiement et un serveur sécurisé doivent être connectés.</p>
+<button class="mainOrder" onclick="prepareOrder()">📱 Préparer la commande</button>
+<div class="recap" id="recap"></div>
+<button class="sendWA" onclick="sendWA()">💬 Envoyer la commande sur WhatsApp</button>
+</div></div>
+</aside></div>
+<div class="adminDrawer" id="adminDrawer"><div class="adminBack" onclick="closeAdmin()"></div><aside class="adminPanel" id="adminPanel"></aside></div>
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)"><button class="lbClose" onclick="closeLightbox(event)">✕</button><button class="lbPrev" onclick="lbMove(-1,event)">‹</button><img id="lbImg" src="" alt="Photo agrandie"><button class="lbNext" onclick="lbMove(1,event)">›</button></div>
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const WA="22964565342";
+
+/* ===== Supabase (base de données en ligne) — voir supabase-installation.md ===== */
+const SUPABASE_URL="https://anmlzqxxpjhftwpdlque.supabase.co/rest/v1/ ";
+const SUPABASE_KEY=(anon/publishable);
+const BUCKET="product-photos";
+const sb=(window.supabase&&SUPABASE_URL.startsWith("https://")&&!SUPABASE_KEY.startsWith("COLLER"))?window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY):null;
+const CLOUD=!!sb;
+
+/* Mode diagnostic : ouvrez votre site avec  ?debug  à la fin de l'adresse (ex. monsite.netlify.app/?debug) */
+const DEBUG=/[?&]debug/.test(location.search);
+function debugMsg(t){
+  if(!DEBUG)return;
+  let d=document.getElementById('dbg');
+  if(!d){d=document.createElement('div');d.id='dbg';d.style.cssText='position:fixed;left:8px;right:8px;top:8px;z-index:999;background:#fff3cd;border:2px solid #c9a227;color:#3a2f00;padding:10px 12px;border-radius:10px;font:13px/1.4 Arial;white-space:pre-wrap';d.onclick=()=>d.remove();document.body.appendChild(d)}
+  d.textContent=t+'\n(touchez pour fermer)';
+}
+function whyNot(){
+  if(!window.supabase)return "❌ La librairie Supabase ne s'est pas chargée (ligne <script src=…supabase-js> absente, bloqueur de pub ou connexion coupée).";
+  if(!SUPABASE_URL.startsWith("https://"))return "❌ SUPABASE_URL n'est pas remplie (elle doit commencer par https://).";
+  if(SUPABASE_KEY.startsWith("COLLER"))return "❌ SUPABASE_KEY n'est pas remplie.";
+  return "";
+}
+
+/* Numéros où le client envoie son paiement Mobile Money.
+   Laissez "" pour ne rien afficher. Exemple : "64 56 53 42" */
+const PAY_INFO={
+  "MTN Mobile Money":"",
+  "Moov Money":"",
+  "Celtiis Cash":""
+};
+
+/* Produits d'exemple : utilisés seulement si Supabase n'est pas encore configuré. */
+const defaultProducts=[
+{id:1,name:"Maestro — Global Fragrance",cat:"Parfums",price:3500,old:4500,imgs:["assets/maestro.jpg"],desc:"Spray parfumé 200 ml.",stock:12},
+{id:2,name:"Dove — Déodorants",cat:"Déodorants",price:2500,old:0,imgs:["assets/dove.jpg"],desc:"Déodorant Dove, fraîcheur et douceur longue durée.",stock:20}
+];
+
+/* ===== Utilitaires ===== */
+const $=id=>document.getElementById(id);
+const fmt=n=>Number(n||0).toLocaleString('fr-FR')+' FCFA';
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const PLACEHOLDER="data:image/svg+xml,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect width="400" height="400" fill="#f4f0e8"/><text x="200" y="215" font-size="60" text-anchor="middle">🧴</text></svg>');
+const absUrl=src=>{try{return new URL(src,location.href).href}catch(e){return ''}};
+const isPublic=u=>/^https?:/i.test(u);
+function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('show'),2200)}
+function store(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}}
+function read(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}}
+
+/* ===== État ===== */
+let loading=CLOUD;
+let products=CLOUD?(read('keny_products_cache')||[]):JSON.parse(JSON.stringify(defaultProducts));
+let cart=read('keny_cart')||[];
+let currentFilter='Tous';
+let payMethod='MTN Mobile Money';
+const pById=id=>products.find(p=>p.id===id);
+const imgsOf=p=>(p.imgs&&p.imgs.length)?p.imgs:[PLACEHOLDER];
+const refOf=p=>'KP-'+String(p.id).padStart(3,'0');
+const saveCart=()=>store('keny_cart',cart);
+
+/* ===== Gamme défilante ===== */
+function renderRange(){
+  $('rangeScroller').innerHTML=products.map(p=>`
+    <div class="rangeCard">
+      <div class="rangeImg" onclick="openPhotos(${p.id},0)"><img src="${esc(imgsOf(p)[0])}" alt="${esc(p.name)}" draggable="false" loading="lazy"></div>
+      <div class="rangeInfo"><div class="rangeCat">${esc(p.cat)}</div><h3>${esc(p.name)}</h3><div class="rangePrice">${fmt(p.price)}</div></div>
+    </div>`).join('');
+}
+function scrollRange(d){$('rangeScroller').scrollBy({left:d*240,behavior:'smooth'})}
+(function(){
+  const rs=$('rangeScroller');let down=false,moved=false,sx=0,sl=0;
+  rs.addEventListener('mousedown',e=>{down=true;moved=false;sx=e.pageX;sl=rs.scrollLeft});
+  window.addEventListener('mousemove',e=>{if(!down)return;const dx=e.pageX-sx;if(Math.abs(dx)>5){moved=true;rs.classList.add('dragging')}if(moved)rs.scrollLeft=sl-dx});
+  window.addEventListener('mouseup',()=>{if(down){down=false;rs.classList.remove('dragging')}});
+  rs.addEventListener('click',e=>{if(moved){e.stopPropagation();e.preventDefault();moved=false}},true);
+})();
+
+/* ===== Filtres + produits ===== */
+function renderFilters(){
+  const cats=['Tous',...new Set(products.map(p=>p.cat))];
+  if(!cats.includes(currentFilter))currentFilter='Tous';
+  $('filters').innerHTML=cats.map((c,i)=>`<button class="filter ${c===currentFilter?'active':''}" onclick="setFilter(${i})">${esc(c)}</button>`).join('');
+  $('filters').dataset.cats=JSON.stringify(cats);
+}
+function setFilter(i){currentFilter=JSON.parse($('filters').dataset.cats)[i];renderFilters();renderProducts()}
+
+function renderProducts(){
+  const list=products.filter(p=>currentFilter==='Tous'||p.cat===currentFilter);
+  if(!list.length){$('products').innerHTML='<div class="empty" style="grid-column:1/-1">'+(loading?'Chargement des produits…':'Aucun produit pour le moment.')+'</div>';return}
+  $('products').innerHTML=list.map(p=>{
+    const imgs=imgsOf(p),out=p.stock<=0;
+    const promo=p.old>p.price?Math.round((1-p.price/p.old)*100):0;
+    const badge=out?'<span class="badge" style="background:#555">Rupture</span>':(promo?`<span class="badge">-${promo}%</span>`:'');
+    const pic=imgs.length>1
+      ?`<div class="gallery" onscroll="galleryDots(this)">${imgs.map((s,i)=>`<img src="${esc(s)}" alt="${esc(p.name)}" loading="lazy" onclick="openPhotos(${p.id},${i})">`).join('')}</div><div class="galleryDots">${imgs.map((_,i)=>`<i class="${i?'':'on'}"></i>`).join('')}</div>`
+      :`<img src="${esc(imgs[0])}" alt="${esc(p.name)}" loading="lazy" onclick="openPhotos(${p.id},0)">`;
+    const stock=out?'<div class="stock out">Rupture de stock</div>':(p.stock<=5?`<div class="stock">Plus que ${p.stock} en stock</div>`:'<div class="stock">✔ En stock</div>');
+    return `<article class="card">
+      <div class="pic">${badge}${pic}</div>
+      <div class="body">
+        <div class="cat">${esc(p.cat)}</div>
+        <h3>${esc(p.name)}</h3>
+        <div class="ref">Réf. ${refOf(p)}</div>
+        <div class="desc">${esc(p.desc)}</div>
+        <div class="price"><strong>${fmt(p.price)}</strong>${p.old>p.price?`<span class="old">${fmt(p.old)}</span>`:''}</div>
+        ${stock}
+        <div class="cardActions">
+          <button class="add" onclick="addToCart(${p.id})" ${out?'disabled':''}>🛒 Ajouter au panier</button>
+          <div class="buyRow">
+            <button class="buyNow" onclick="buyNow(${p.id})" ${out?'disabled':''}>⚡ Acheter</button>
+            <button class="waProd" onclick="waProduct(${p.id})">💬 WhatsApp</button>
+          </div>
+        </div>
+      </div></article>`;
+  }).join('');
+}
+function galleryDots(g){
+  const i=Math.round(g.scrollLeft/g.clientWidth);
+  g.parentElement.querySelectorAll('.galleryDots i').forEach((d,k)=>d.classList.toggle('on',k===i));
+}
+
+/* ===== Visionneuse photo ===== */
+let lbList=[],lbIdx=0;
+function openPhotos(id,i){const p=pById(id);if(p)openLightbox(imgsOf(p),i)}
+function openLightbox(list,i){lbList=list;lbIdx=i;showLb();$('lightbox').classList.add('open')}
+function showLb(){
+  $('lbImg').src=lbList[lbIdx];
+  const multi=lbList.length>1;
+  document.querySelector('.lbPrev').style.display=multi?'':'none';
+  document.querySelector('.lbNext').style.display=multi?'':'none';
+}
+function lbMove(d,e){if(e)e.stopPropagation();lbIdx=(lbIdx+d+lbList.length)%lbList.length;showLb()}
+function closeLightbox(e){if(e&&e.target.id==='lbImg')return;$('lightbox').classList.remove('open')}
+
+/* ===== Achat direct + WhatsApp produit ===== */
+function buyNow(id){
+  const p=pById(id);if(!p||p.stock<=0)return;
+  if(!cart.find(c=>c.id===id)){cart.push({id,qty:1});saveCart();renderCart()}
+  openCart();
+  setTimeout(()=>$('checkout').scrollIntoView({behavior:'smooth',block:'start'}),250);
+}
+function publicPhotos(p,max){
+  return [...new Set(imgsOf(p).map(absUrl))].filter(isPublic).slice(0,max||3);
+}
+function waProduct(id){
+  const p=pById(id);if(!p)return;
+  const photos=publicPhotos(p,3);
+  let msg='Bonjour KENY PARFUMERIE 👋\nJe suis intéressé(e) par ce produit :\n\n'+
+    '🔖 Référence : '+refOf(p)+'\n'+
+    '🧴 Produit : '+p.name+'\n'+
+    '💰 Prix : '+fmt(p.price)+'\n';
+  if(photos.length)msg+='\n📸 Photo'+(photos.length>1?'s':'')+' :\n'+photos.join('\n')+'\n';
+  msg+='\nEst-il disponible ?';
+  window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(msg),'_blank');
+}
+
+/* ===== Panier ===== */
+function addToCart(id){
+  const p=pById(id);if(!p||p.stock<=0)return;
+  const line=cart.find(c=>c.id===id);
+  if(line){if(line.qty>=p.stock){toast('Stock maximum atteint');return}line.qty++}
+  else cart.push({id,qty:1});
+  saveCart();renderCart();toast('✔ Ajouté au panier');
+}
+function changeQty(id,d){
+  const line=cart.find(c=>c.id===id),p=pById(id);if(!line||!p)return;
+  line.qty+=d;
+  if(line.qty>p.stock){line.qty=p.stock;toast('Stock maximum atteint')}
+  if(line.qty<=0)cart=cart.filter(c=>c.id!==id);
+  saveCart();renderCart();
+}
+function removeItem(id){cart=cart.filter(c=>c.id!==id);saveCart();renderCart()}
+function cartLines(){return cart.map(c=>({p:pById(c.id),qty:c.qty})).filter(l=>l.p)}
+function cartTotal(){return cartLines().reduce((s,l)=>s+l.p.price*l.qty,0)}
+function renderCart(){
+  cart=cart.filter(c=>pById(c.id));
+  const lines=cartLines();
+  $('count').textContent=lines.reduce((s,l)=>s+l.qty,0);
+  if(!lines.length){
+    $('items').innerHTML='<div class="empty">🛒<br>Votre panier est vide.<br>Ajoutez un produit pour commencer.</div>';
+    $('checkout').style.display='none';return;
+  }
+  $('items').innerHTML=lines.map(({p,qty})=>`
+    <div class="item">
+      <img src="${esc(imgsOf(p)[0])}" alt="">
+      <div><h4>${esc(p.name)}</h4><div class="adminMeta">Réf. ${refOf(p)} · ${fmt(p.price)}</div>
+        <div class="qty"><button onclick="changeQty(${p.id},-1)">−</button><b>${qty}</b><button onclick="changeQty(${p.id},1)">+</button></div></div>
+      <div style="text-align:right"><b>${fmt(p.price*qty)}</b><br><button class="remove" onclick="removeItem(${p.id})">Retirer</button></div>
+    </div>`).join('');
+  $('total').textContent=fmt(cartTotal());
+  $('checkout').style.display='block';
+}
+function openCart(){renderCart();$('drawer').classList.add('open')}
+function closeCart(){$('drawer').classList.remove('open')}
+
+/* ===== Paiement Mobile Money ===== */
+function payment(btn){
+  document.querySelectorAll('.pay').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');payMethod=btn.dataset.pay;showPayInfo();
+}
+function showPayInfo(){
+  const box=$('payInfo'),num=PAY_INFO[payMethod];
+  box.style.display=num?'block':'none';
+  if(num)box.textContent='Envoyez le paiement '+payMethod+' au '+num+', puis indiquez la référence ci-dessous.';
+}
+
+/* ===== Commande ===== */
+function buildOrder(){
+  const name=$('name').value.trim(),phone=$('phone').value.trim(),address=$('address').value.trim(),ref=$('ref').value.trim();
+  const lines=cartLines();
+  if(!lines.length){toast('Votre panier est vide');return null}
+  if(!name){toast('Entrez votre nom');$('name').focus();return null}
+  if(phone.replace(/\D/g,'').length<8){toast('Entrez un numéro valide');$('phone').focus();return null}
+  if(!address){toast('Entrez le lieu de livraison');$('address').focus();return null}
+  let t='🛍️ NOUVELLE COMMANDE — KENY PARFUMERIE\n\n👤 Client : '+name+'\n📞 Téléphone : '+phone+'\n📍 Livraison : '+address+'\n\n🧾 Articles :\n';
+  lines.forEach(({p,qty})=>{
+    t+='• '+refOf(p)+' · '+p.name+' × '+qty+' = '+fmt(p.price*qty)+'\n';
+    const ph=publicPhotos(p,1)[0];if(ph)t+='   📸 '+ph+'\n';
+  });
+  t+='\n💰 Total : '+fmt(cartTotal())+'\n💳 Paiement : '+payMethod;
+  if(ref)t+='\n🔖 Référence de paiement : '+ref;
+  return t;
+}
+function prepareOrder(){
+  const t=buildOrder();if(!t)return;
+  const r=$('recap');r.textContent=t;r.classList.add('show');
+  toast('Récapitulatif prêt ✔');
+}
+function sendWA(){
+  const t=buildOrder();if(!t)return;
+  $('recap').textContent=t;$('recap').classList.add('show');
+  window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(t),'_blank');
+}
+
+/* ===== Base de données en ligne (Supabase) ===== */
+const rowToProduct=r=>({id:r.id,name:r.name,cat:r.cat,price:r.price,old:r.old||0,stock:r.stock,desc:r.descr||'',imgs:r.imgs||[]});
+const cacheProducts=()=>store('keny_products_cache',products);
+function refreshAll(){renderRange();renderFilters();renderProducts();renderCart()}
+async function loadProducts(){
+  if(!CLOUD)return;
+  const {data,error}=await sb.from('products').select('*').order('id',{ascending:true});
+  loading=false;
+  if(error){
+    console.error(error);
+    debugMsg("❌ Supabase répond avec une erreur :\n"+error.message+(/find the table|does not exist/i.test(error.message)?"\n→ Le code SQL n'a pas été exécuté (table 'products' introuvable).":"")+(/api key|jwt/i.test(error.message)?"\n→ La clé SUPABASE_KEY est incorrecte.":""));
+    if(!products.length)toast('Impossible de charger les produits');
+    refreshAll();return;
+  }
+  products=data.map(rowToProduct);cacheProducts();refreshAll();
+  debugMsg("✅ Connecté à Supabase.\n"+products.length+" produit(s) reçu(s)."+(products.length?"":"\n→ La table est vide : ajoutez un produit ou relancez l'insertion SQL."));
+}
+const storagePath=u=>{const m=String(u).match(/\/product-photos\/(.+)$/);return m?decodeURIComponent(m[1]):null};
+async function removePhotos(urls){
+  const paths=urls.map(storagePath).filter(Boolean);
+  if(paths.length){try{await sb.storage.from(BUCKET).remove(paths)}catch(e){console.error(e)}}
+}
+
+/* ===== Compte échange (gestion des produits) ===== */
+let adminOK=false,editingId=null,formImgs=[];
+function openAdmin(){
+  if(!CLOUD){toast("Supabase n'est pas encore configuré dans le fichier");return}
+  $('adminDrawer').classList.add('open');renderAdmin();
+}
+function closeAdmin(){$('adminDrawer').classList.remove('open')}
+async function adminLogin(){
+  const email=$('adminEmail').value.trim(),password=$('adminPass').value;
+  if(!email||!password){toast('Entrez votre email et votre mot de passe');return}
+  const {error}=await sb.auth.signInWithPassword({email,password});
+  if(error){toast('Connexion refusée : vérifiez vos identifiants');return}
+  adminOK=true;renderAdmin();
+}
+async function adminLogout(){await sb.auth.signOut();adminOK=false;editingId=null;formImgs=[];renderAdmin()}
+function renderAdmin(){
+  const P=$('adminPanel');
+  if(!adminOK){
+    P.innerHTML=`<div class="adminHead"><h2>Compte échange</h2><button class="close" onclick="closeAdmin()">✕</button></div>
+      <div class="loginBox"><h3>Accès vendeur</h3>
+        <input id="adminEmail" type="email" placeholder="Email vendeur" autocomplete="username">
+        <input id="adminPass" type="password" placeholder="Mot de passe" autocomplete="current-password" onkeydown="if(event.key==='Enter')adminLogin()">
+        <button class="adminSubmit" style="width:100%" onclick="adminLogin()">Se connecter</button></div>`;
+    return;
+  }
+  P.innerHTML=`<div class="adminHead"><h2>Gérer les produits</h2><div><button class="adminEdit" onclick="adminLogout()">Déconnexion</button> <button class="close" onclick="closeAdmin()">✕</button></div></div>
+    <div class="adminForm">
+      <label id="formTitle">Nouveau produit</label>
+      <label>Nom</label><input id="aName" placeholder="Nom du produit">
+      <label>Catégorie</label><input id="aCat" list="catList" placeholder="Parfums, Déodorants…"><datalist id="catList">${[...new Set(products.map(p=>p.cat))].map(c=>`<option value="${esc(c)}">`).join('')}</datalist>
+      <div class="adminGrid">
+        <div><label>Prix (FCFA)</label><input id="aPrice" type="number" min="0" inputmode="numeric"></div>
+        <div><label>Ancien prix (facultatif)</label><input id="aOld" type="number" min="0" inputmode="numeric"></div>
+      </div>
+      <label>Stock</label><input id="aStock" type="number" min="0" inputmode="numeric" value="10">
+      <label>Description</label><textarea id="aDesc" rows="2"></textarea>
+      <label>Photos</label><input id="aFiles" type="file" accept="image/*" multiple onchange="addFormImgs(this)">
+      <div class="multiHint">La 1re photo est la photo principale. Les photos sont enregistrées en ligne : vos clients les voient, et elles sont jointes en lien dans le message WhatsApp.</div>
+      <div class="previewRow" id="previewRow"></div>
+      <button class="adminSubmit" onclick="saveProduct()" id="saveBtn">Enregistrer le produit</button>
+      <button class="adminEdit" onclick="resetForm()" id="cancelBtn" style="display:none">Annuler la modification</button>
+    </div>
+    <h3 style="margin-top:26px">Produits (${products.length})</h3><div id="adminList"></div>`;
+  updatePreview();renderAdminList();
+}
+function updatePreview(){
+  const row=$('previewRow');if(!row)return;
+  row.innerHTML=formImgs.map((s,i)=>`<div class="thumb"><img src="${esc(s)}" alt="">
+    <button class="tx" onclick="removeFormImg(${i})">✕</button>
+    ${i===0?'<span class="tmain">Principale</span>':`<button class="tf" onclick="mainFormImg(${i})">★ Principale</button>`}</div>`).join('');
+}
+function removeFormImg(i){formImgs.splice(i,1);updatePreview()}
+function mainFormImg(i){formImgs.unshift(formImgs.splice(i,1)[0]);updatePreview()}
+function fileToDataUrl(file){
+  return new Promise((res,rej)=>{
+    const r=new FileReader();
+    r.onerror=rej;
+    r.onload=()=>{
+      const img=new Image();
+      img.onerror=rej;
+      img.onload=()=>{
+        const k=Math.min(1,1000/Math.max(img.width,img.height));
+        const c=document.createElement('canvas');c.width=Math.round(img.width*k);c.height=Math.round(img.height*k);
+        c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+        res(c.toDataURL('image/jpeg',.82));
+      };
+      img.src=r.result;
+    };
+    r.readAsDataURL(file);
+  });
+}
+async function addFormImgs(input){
+  for(const f of input.files){try{formImgs.push(await fileToDataUrl(f))}catch(e){toast('Photo illisible')}}
+  input.value='';updatePreview();
+}
+function renderAdminList(){
+  const box=$('adminList');if(!box)return;
+  box.innerHTML=products.map(p=>`<div class="adminProduct ${p.id===editingId?'editing':''}">
+    <img src="${esc(imgsOf(p)[0])}" alt="">
+    <div><h4>${esc(p.name)}</h4><div class="adminMeta">${refOf(p)} · ${esc(p.cat)} · ${fmt(p.price)} · stock ${p.stock}</div></div>
+    <div class="adminBtns"><button class="adminEdit" onclick="editProduct(${p.id})">Modifier</button><button class="adminDanger" onclick="deleteProduct(${p.id})">Supprimer</button></div>
+  </div>`).join('')||'<div class="empty">Aucun produit.</div>';
+}
+function editProduct(id){
+  const p=pById(id);if(!p)return;
+  editingId=id;formImgs=[...(p.imgs||[])];
+  $('aName').value=p.name;$('aCat').value=p.cat;$('aPrice').value=p.price;$('aOld').value=p.old||'';$('aStock').value=p.stock;$('aDesc').value=p.desc||'';
+  $('formTitle').textContent='Modifier : '+p.name;$('saveBtn').textContent='Mettre à jour';$('cancelBtn').style.display='';
+  updatePreview();renderAdminList();$('adminPanel').scrollTo({top:0,behavior:'smooth'});
+}
+function resetForm(){
+  editingId=null;formImgs=[];
+  ['aName','aCat','aPrice','aOld','aDesc'].forEach(i=>$(i).value='');$('aStock').value=10;
+  $('formTitle').textContent='Nouveau produit';$('saveBtn').textContent='Enregistrer le produit';$('cancelBtn').style.display='none';
+  updatePreview();renderAdminList();
+}
+async function saveProduct(){
+  const name=$('aName').value.trim(),cat=$('aCat').value.trim()||'Parfums',price=+$('aPrice').value,old=+$('aOld').value||0,stock=Math.max(0,parseInt($('aStock').value)||0),desc=$('aDesc').value.trim();
+  if(!name){toast('Entrez le nom du produit');return}
+  if(!(price>0)){toast('Entrez un prix valide');return}
+  const btn=$('saveBtn');btn.disabled=true;btn.textContent='Enregistrement…';
+  const before=editingId?[...(pById(editingId).imgs||[])]:[];
+  try{
+    const imgs=[];
+    for(const s of formImgs){
+      if(s.startsWith('data:')){
+        const blob=await (await fetch(s)).blob();
+        const path=Date.now()+'-'+Math.random().toString(36).slice(2,8)+'.jpg';
+        const up=await sb.storage.from(BUCKET).upload(path,blob,{contentType:'image/jpeg',cacheControl:'31536000'});
+        if(up.error)throw up.error;
+        imgs.push(sb.storage.from(BUCKET).getPublicUrl(path).data.publicUrl);
+      }else imgs.push(s);
+    }
+    const row={name,cat,price,old,stock,descr:desc,imgs};
+    const res=editingId
+      ?await sb.from('products').update(row).eq('id',editingId).select().single()
+      :await sb.from('products').insert(row).select().single();
+    if(res.error)throw res.error;
+    const p=rowToProduct(res.data);
+    if(editingId){products=products.map(x=>x.id===editingId?p:x);removePhotos(before.filter(u=>!imgs.includes(u)))}
+    else products.push(p);
+    cacheProducts();
+    toast(editingId?'Produit mis à jour ✔':'Produit ajouté ✔');
+    refreshAll();resetForm();
+  }catch(e){
+    console.error(e);
+    toast('Erreur : '+(e.message||'enregistrement impossible'));
+  }finally{
+    const b=$('saveBtn');if(b){b.disabled=false;b.textContent=editingId?'Mettre à jour':'Enregistrer le produit'}
+  }
+}
+async function deleteProduct(id){
+  const p=pById(id);if(!p||!confirm('Supprimer « '+p.name+' » ?'))return;
+  const {error}=await sb.from('products').delete().eq('id',id);
+  if(error){console.error(error);toast('Suppression impossible : '+error.message);return}
+  removePhotos(p.imgs||[]);
+  products=products.filter(x=>x.id!==id);cacheProducts();
+  if(editingId===id)resetForm();
+  refreshAll();renderAdminList();toast('Produit supprimé');
+}
+
+/* ===== Clavier ===== */
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){closeLightbox();closeCart();closeAdmin()}
+  if($('lightbox').classList.contains('open')){if(e.key==='ArrowLeft')lbMove(-1);if(e.key==='ArrowRight')lbMove(1)}
+});
+
+/* ===== Démarrage ===== */
+refreshAll();showPayInfo();
+if(!CLOUD)debugMsg(whyNot());
+if(CLOUD){
+  loadProducts();
+  sb.auth.getSession().then(({data})=>{adminOK=!!(data&&data.session)});
+}
+</script>
+</body>
+</html>
